@@ -25,7 +25,6 @@ module.exports = {
 
         try {
             const response = await github.repos.createForAuthenticatedUser(data);
-            console.log('response data: ', response.data);
             
             return response.data.ssh_url;
         } catch (error) {
@@ -49,7 +48,6 @@ module.exports = {
         }
     },
     setupRepo: async (url) => {
-        console.log('url = ', url);
         
         const status = new Spinner('Initializing local repository and pushing to remote...');
         status.start();
@@ -60,7 +58,7 @@ module.exports = {
                 .add('.gitignore')
                 .add('./*')
                 .commit('Initial commit')
-                .addRemote('origin', 'https://github.com/bartbrusselmans/test.git')
+                .addRemote('origin', url)
                 .push('origin', 'master');
             return true;
         } catch (error) {
