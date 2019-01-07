@@ -1,0 +1,24 @@
+const fs = require('fs');
+const path = require('path');
+
+module.exports = {
+    getCurrentDirectoryBase: () => {
+        return path.basename(process.cwd());
+    },
+
+    directoryExists: (filePath) => {
+        try {
+            return fs.statSync(filePath).isDirectory();
+        } catch (error) {
+            return false;
+        }
+    },
+
+    isGitRepository: () => {
+        if (files.directoryExists('.git')) {
+            console.log(chalk.red('Already a git repo!'));
+            process.exit();
+            
+        }
+    }
+}
