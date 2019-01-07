@@ -25,6 +25,8 @@ module.exports = {
 
         try {
             const response = await github.repos.createForAuthenticatedUser(data);
+            console.log('response data: ', response.data);
+            
             return response.data.ssh_url;
         } catch (error) {
             throw error;
@@ -33,10 +35,7 @@ module.exports = {
         }
     },
     createGitIgnore: async () => {
-        const filelist = _.without(fs.readdirSync('.'), '.git', '.gitignore');
-
-        console.log(filelist);
-        
+        const filelist = _.without(fs.readdirSync('.'), '.git', '.gitignore');        
 
         if (filelist.length) {
             const answers = await inquirer.askIgnoreFiles(filelist);
@@ -50,6 +49,8 @@ module.exports = {
         }
     },
     setupRepo: async (url) => {
+        console.log('url = ', url);
+        
         const status = new Spinner('Initializing local repository and pushing to remote...');
         status.start();
 
@@ -59,8 +60,7 @@ module.exports = {
                 .add('.gitignore')
                 .add('./*')
                 .commit('Initial commit')
-                .addRemote('origin', url)
-                .push('origin', 'master');
+                .addRemote('origin', url);
             return true;
         } catch (error) {
             throw error;
