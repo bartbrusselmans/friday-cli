@@ -60,7 +60,8 @@ module.exports = {
                 .add('.gitignore')
                 .add('./*')
                 .commit('Initial commit')
-                .addRemote('origin', 'https://github.com/bartbrusselmans/test.git');
+                .addRemote('origin', 'https://github.com/bartbrusselmans/test.git')
+                .push('origin', 'master');
             return true;
         } catch (error) {
             throw error;
